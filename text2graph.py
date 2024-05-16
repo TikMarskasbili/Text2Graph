@@ -59,7 +59,7 @@ def visualize_graph(G):
 
 
 
-# 步骤5: 查询桥接词
+# 步骤4: 查询桥接词
 def find_bridge_words(G, word1, word2):
     if word1 not in G or word2 not in G:
         return f"No {word1} or {word2} in the graph!"
@@ -75,6 +75,7 @@ def find_bridge_words(G, word1, word2):
         return f"No bridge words from {word1} to {word2}!"
     else:
         return f"The bridge words from {word1} to {word2} are: {', '.join(bridge_words)}."
+
 
 
 
