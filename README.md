@@ -12,8 +12,8 @@ pip install -r requirement.txt
 python text2graph.py
 ```
 功能实现：
-1、查询桥接词
-2、插入桥接词
-3、计算最短路径
-4、随机游走
-exit、退出
+1、查询桥接词   
+2、插入桥接词  
+3、计算最短路径  
+4、随机游走  
+exit、退出  
