@@ -223,7 +223,7 @@ def UI(G):
 
 # 主函数
 def main():
-    file_path = 'poet.txt'  # 假设文本文件名为text.txt
+    file_path = 'test.txt'  # 假设文本文件名为text.txt
     words = read_text_file(file_path)
     G = build_directed_graph(words)
     visualize_graph(G)
