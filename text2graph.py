@@ -59,7 +59,7 @@ def visualize_graph(G):
 
 
 
-# 步骤5: 查询桥接词
+# 步骤4: 查询桥接词
 def find_bridge_words(G, word1, word2):
     if word1 not in G or word2 not in G:
         return f"No {word1} or {word2} in the graph!"
@@ -77,6 +77,20 @@ def find_bridge_words(G, word1, word2):
         return f"The bridge words from {word1} to {word2} are: {', '.join(bridge_words)}."
 
 
+# 步骤5: 插入桥接词
+def insert_bridge_words(text, G):
+    words = text.lower().split()
+    new_text = []
+
+    for i in range(len(words) - 1):
+        new_text.append(words[i])
+        bridge_word = find_bridge_words(G, words[i], words[i + 1])
+        if bridge_word:
+            new_text.append(bridge_word)
+
+    new_text.append(words[-1])  # 添加最后一个单词
+
+    return ' '.join(new_text)
 
 # 主函数
 def main():
@@ -90,6 +104,9 @@ def main():
     result = find_bridge_words(G, word1, word2)
     print(result)
 
+    new_text = input("Enter the new text: ")
+    new_text_with_bridge_words = insert_bridge_words(new_text, G)
+    print("Result with bridge words:", new_text_with_bridge_words)
 
 if __name__ == '__main__':
     main()
