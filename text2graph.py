@@ -1,13 +1,19 @@
 import networkx as nx
 from collections import defaultdict
+import re 
 
 
 # 步骤1: 读取和解析文本文件
 def read_text_file(file_path):
-    with open(file_path, 'r') as file:
+    with open(file_path, 'r', encoding='utf-8') as file:
         text = file.read()
-        # 清理文本，转换为小写，并按空格分割
-        words = text.lower().replace('\n', ' ').split()
+        
+        # 使用正则表达式替换非字母字符为空格
+        text = re.sub(r'[^a-zA-Z]', ' ', text)
+        
+        # 将文本转换为小写并按空格分割
+        words = text.lower().split()
+    
     return words
 
 
@@ -30,9 +36,19 @@ def build_directed_graph(words):
 
 # 步骤3: 展示生成的有向图 (需要Graphviz和pygraphviz)
 def visualize_graph(G):
-    import matplotlib.pyplot as plt
-    nx.draw(G, with_labels=True)
-    plt.show()
+    pos = nx.nx_agraph.graphviz_layout(G, prog='dot')  # 使用Graphviz的dot布局
+
+    plt.figure(figsize=(10, 8))  # 设置图形大小
+
+    # 绘制节点和边
+    nx.draw(G, pos, with_labels=True, node_size=3000, node_color='lightblue', 
+            font_size=10, font_weight='bold', arrows=True, arrowstyle='->', arrowsize=20)
+
+    # 为每条边添加权重标签
+    edge_labels = nx.get_edge_attributes(G, 'weight')
+    nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels)
+
+    plt.show()  # 显示图形
 
 
 # 步骤5: 查询桥接词
