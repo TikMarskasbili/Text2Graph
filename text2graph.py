@@ -92,6 +92,7 @@ def insert_bridge_words(text, G):
 
     return ' '.join(new_text)
 
+
 # 主函数
 def main():
     file_path = 'poet.txt'  # 假设文本文件名为text.txt
