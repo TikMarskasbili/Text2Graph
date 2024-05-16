@@ -1,6 +1,8 @@
 import networkx as nx
 from collections import defaultdict
 import re 
+import matplotlib.pyplot as plt
+import os
 
 
 # 步骤1: 读取和解析文本文件
@@ -38,28 +40,42 @@ def build_directed_graph(words):
 def visualize_graph(G):
     pos = nx.nx_agraph.graphviz_layout(G, prog='dot')  # 使用Graphviz的dot布局
 
-    plt.figure(figsize=(10, 8))  # 设置图形大小
+    plt.figure(figsize=(10, 8))
 
-    # 绘制节点和边
     nx.draw(G, pos, with_labels=True, node_size=3000, node_color='lightblue', 
             font_size=10, font_weight='bold', arrows=True, arrowstyle='->', arrowsize=20)
 
-    # 为每条边添加权重标签
     edge_labels = nx.get_edge_attributes(G, 'weight')
     nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels)
 
-    plt.show()  # 显示图形
+    # 删除已有的图像文件
+    if os.path.exists("text2graph.png"):
+        os.remove("text2graph.png")
+
+    # 保存新的图像
+    plt.savefig("text2graph.png")
+
+    plt.show()
+
 
 
 # 步骤5: 查询桥接词
 def find_bridge_words(G, word1, word2):
+    if word1 not in G or word2 not in G:
+        return f"No {word1} or {word2} in the graph!"
+    
     bridge_words = []
     successors = list(G.successors(word1))
     predecessors = list(G.predecessors(word2))
     for successor in successors:
         if successor in predecessors:
             bridge_words.append(successor)
-    return bridge_words
+    
+    if not bridge_words:
+        return f"No bridge words from {word1} to {word2}!"
+    else:
+        return f"The bridge words from {word1} to {word2} are: {', '.join(bridge_words)}."
+
 
 
 # 主函数
@@ -68,13 +84,11 @@ def main():
     words = read_text_file(file_path)
     G = build_directed_graph(words)
     visualize_graph(G)
-    word1 = 'to'
-    word2 = 'and'
-    bridge_words = find_bridge_words(G, word1, word2)
-    if not bridge_words:
-        print("No bridge words from {} to {}!".format(word1, word2))
-    else:
-        print("The bridge words from {} to {} are: {}".format(word1, word2, ', '.join(bridge_words)))
+    word1 = input("Enter the first word: ").lower()
+    word2 = input("Enter the second word: ").lower()
+    
+    result = find_bridge_words(G, word1, word2)
+    print(result)
 
 
 if __name__ == '__main__':
