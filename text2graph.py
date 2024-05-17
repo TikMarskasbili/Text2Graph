@@ -73,9 +73,9 @@ def find_bridge_words(G, word1, word2):
             bridge_words.append(successor)
     
     if not bridge_words:
-        return f"No bridge words from {word1} to {word2}!"
+        return f"无桥接词从 {word1} 到 {word2}!"
     else:
-        return f"The bridge words from {word1} to {word2} are: {', '.join(bridge_words)}."
+        return f"桥接词从 {word1} 到 {word2} 是: {', '.join(bridge_words)}."
 
 
 # 步骤5: 插入桥接词
