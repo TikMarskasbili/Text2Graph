@@ -11,7 +11,7 @@ pip install -r requirement.txt
 ```bash
 python text2graph.py
 ```
-功能实现：  
+功能实现：
 1、查询桥接词   
 2、插入桥接词  
 3、计算最短路径  
