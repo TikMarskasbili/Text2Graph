@@ -50,15 +50,13 @@ def visualize_graph(G):
     nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels)
 
     # 删除已有的图像文件
-    if os.path.exists("text2graph.png"):
-        os.remove("text2graph.png")
+    if os.path.exists("./text2graph.png"):
+        os.remove("./text2graph.png")
 
     # 保存新的图像
-    plt.savefig("text2graph.png")
+    plt.savefig("./text2graph.png")
 
     plt.show()
-
-
 
 # 步骤4: 查询桥接词
 def find_bridge_words(G, word1, word2):
@@ -68,6 +66,7 @@ def find_bridge_words(G, word1, word2):
     bridge_words = []
     successors = list(G.successors(word1))
     predecessors = list(G.predecessors(word2))
+
     for successor in successors:
         if successor in predecessors:
             bridge_words.append(successor)
@@ -221,13 +220,21 @@ def UI(G):
             break
 
 
+
 # 主函数
 def main():
     file_path = 'test.txt'  # 假设文本文件名为text.txt
     words = read_text_file(file_path)
     G = build_directed_graph(words)
     visualize_graph(G)
+    while(1):
+        choice = input()
 
+    word1 = input("Enter the first word: ").lower()
+    word2 = input("Enter the second word: ").lower()
+    
+    result = find_bridge_words(G, word1, word2)
+    print(result)
     UI(G)
 
 
