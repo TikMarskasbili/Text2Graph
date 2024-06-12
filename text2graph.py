@@ -149,10 +149,14 @@ def find_and_display_shortest_path(G):
 
 
 # 步骤7：随机游走
-def random_traversal(G, start_node=None, visited_nodes=None, visited_edges=None):
+def random_traversal(G, start_node=None):
+    if start_node is None or start_node not in G:
+        # 如果没有指定起始节点，或指定的起始节点不在图中，则随机选择一个
+        start_node = random.choice(list(G.nodes))
+
     # 记录已访问的节点和边
-    visited_nodes = [start_node] if visited_nodes is None else visited_nodes
-    visited_edges = [] if visited_edges is None else visited_edges
+    visited_nodes = [start_node]
+    visited_edges = []
     current_node = start_node
 
     while True:
@@ -182,8 +186,9 @@ def random_traversal(G, start_node=None, visited_nodes=None, visited_edges=None)
     return visited_nodes, visited_edges
 
 
+
 def UI(G):
-    while(1):
+    while True:
         print("------->1、查询桥接词\n\t2、插入桥接词\n\t3、计算最短路径\n\t4、随机游走\n\texit、退出")
         choice = input("--->")
         if choice == '1':
@@ -198,19 +203,15 @@ def UI(G):
         elif choice == '3':
             find_and_display_shortest_path(G)
         elif choice == '4':
-            start_node = ""
-            print("--->输入图中任一单词：", end='')
-            start_node = input()
-            if start_node not in G:
-                start_node = random.choice(list(G.nodes()))
+            start_node = input("--->输入图中任一单词（可选）：").strip().lower()
+            if start_node == "":
+                start_node = None
             visited_nodes, visited_edges = random_traversal(G, start_node)
             # 将遍历结果输出为文本
             traversal_text = ' '.join(visited_nodes)
             print(traversal_text)
-
         elif choice == 'exit':
             break
-
 
 # 主函数
 def main():
@@ -218,9 +219,7 @@ def main():
     words = read_text_file(file_path)
     G = build_directed_graph(words)
     visualize_graph(G)
-
     UI(G)
-
 
 if __name__ == '__main__':
     main()
