@@ -150,12 +150,6 @@ def find_and_display_shortest_path(G):
 
 # 步骤7：随机游走
 def random_traversal(G, start_node=None, visited_nodes=None, visited_edges=None):
-    import random
-
-    if start_node is None:
-        # 如果没有指定起始节点，则随机选择一个
-        start_node = random.choice(list(G.nodes()))
-
     # 记录已访问的节点和边
     visited_nodes = [start_node] if visited_nodes is None else visited_nodes
     visited_edges = [] if visited_edges is None else visited_edges
@@ -205,13 +199,10 @@ def UI(G):
             find_and_display_shortest_path(G)
         elif choice == '4':
             start_node = ""
-            while(1):
-                print("--->输入图中任一单词：", end='')
-                start_node = input()
-                if start_node not in G:
-                    print("--->输入词不在图中，请重新输入：", end='')
-                else:
-                    break
+            print("--->输入图中任一单词：", end='')
+            start_node = input()
+            if start_node not in G:
+                start_node = random.choice(list(G.nodes()))
             visited_nodes, visited_edges = random_traversal(G, start_node)
             # 将遍历结果输出为文本
             traversal_text = ' '.join(visited_nodes)
