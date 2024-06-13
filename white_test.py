@@ -23,17 +23,6 @@ class TestGraphTraversal(unittest.TestCase):
         self.assertGreater(len(visited_nodes), 0)
         self.assertGreater(len(visited_edges), 0)
 
-    # def test_visited_edge_stopping(self):
-    #     G = nx.DiGraph()
-    #     words = read_text_file('test.txt')
-    #     G = build_directed_graph(words)
-        
-    #     start_node = "to"
-    #     visited_nodes, visited_edges = random_traversal(G, start_node)
-        
-    #     self.assertEqual(len(visited_nodes), 3)  # 因为最后一条边使得循环回到起点，导致停止
-    #     self.assertEqual(len(visited_edges), 2)
-
     def test_visited_edge_stopping(self):
         G = nx.DiGraph()
         G.add_edge("a", "b", weight=1)
@@ -58,4 +47,3 @@ class TestGraphTraversal(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.TextTestRunner(verbosity=2).run(unittest.TestLoader().loadTestsFromTestCase(TestGraphTraversal))
-    # unittest.main()
