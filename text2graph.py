@@ -150,6 +150,9 @@ def find_and_display_shortest_path(G):
 
 # 步骤7：随机游走
 def random_traversal(G, start_node=None):
+    if not G.nodes:  # 如果图为空，返回空列表
+        return [], []
+
     if start_node is None or start_node not in G:
         # 如果没有指定起始节点，或指定的起始节点不在图中，则随机选择一个
         start_node = random.choice(list(G.nodes))
@@ -158,6 +161,7 @@ def random_traversal(G, start_node=None):
     visited_nodes = [start_node]
     visited_edges = []
     current_node = start_node
+    visited_set = set(visited_nodes)
 
     while True:
         # 获取当前节点的所有出边
@@ -174,6 +178,8 @@ def random_traversal(G, start_node=None):
         # 如果该边已经访问过，则停止遍历
         if (current_node, chosen_node, chosen_edge[2]) in visited_edges or \
            (chosen_node, current_node, chosen_edge[2]) in visited_edges:
+            break
+        if chosen_node in visited_set:
             break
 
         # 添加到已访问的节点和边中
