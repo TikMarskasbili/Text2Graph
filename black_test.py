@@ -1,8 +1,9 @@
 import unittest
 import networkx as nx
 
-# 修改 find_and_display_shortest_path 函数以接受输入参数并返回结果
+
 def find_and_display_shortest_path(G, input_str=None):
+# 修改 find_and_display_shortest_path 函数以接受输入参数并返回结果
     output = []
     if input_str is None:
         input_str = input("输入一个或两个单词，并用空格分开: ").strip().lower()
