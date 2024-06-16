@@ -17,7 +17,7 @@ class TestGraphTraversal(unittest.TestCase):
     def test_multiple_nodes_edges(self):
         words = read_text_file('test.txt')
         G = build_directed_graph(words)
-        start_node = None
+        start_node = "new"
         visited_nodes, visited_edges = random_traversal(G, start_node)
         
         self.assertGreater(len(visited_nodes), 0)
